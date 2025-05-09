@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { toast, useSonner } from "sonner";
+import { toast } from "sonner";
 import { StatsDialog } from "@/app/components/StatsDialog";
 
 type FormData = {
@@ -28,7 +28,6 @@ export function ShortenerForm() {
     statsUrl: string;
     expires: Date;
   } | null>(null);
-  const { toast } = useSonner();
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -43,19 +42,16 @@ export function ShortenerForm() {
         expires: new Date(response.data.expires_at),
       });
 
-      toast({
-        title: "URL encurtada com sucesso!",
-        description: "Link copiado para a área de transferência",
+      toast.success("URL encurtada com sucesso!", {
+        description: "Link copiado para a área de trabalho",
       });
 
       navigator.clipboard.writeText(response.data.short_url);
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Erro",
+      toast.error("Erro ao encurtar URL", {
         description: axios.isAxiosError(error)
           ? error.response?.data.error
-          : "Falha ao encurtar URL",
+          : "Tente mais tarde",
       });
     }
   };

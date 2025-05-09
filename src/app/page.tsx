@@ -19,7 +19,7 @@ export default function Home() {
           <p>Limite de 10 requisições por minuto</p>
         </footer>
 
-        <Toaster />
+        <Toaster position="top-center" richColors />
       </div>
     </main>
   );
